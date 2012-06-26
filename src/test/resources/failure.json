@@ -1,0 +1,8 @@
+{
+  "fields": {
+      "url":"scm:svn:https://notreal.com/maestrodev/maestro-irc-plugin",
+      "username":"maestrodevci",
+      "path":"/tmp/irc-plugin",
+      "command":"update"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "fields": {
+      "url":"scm:perforce:notreal:1666://depot/www",
+      "username":"bruno",
+      "path":"/Users/kelly/Documents/p4/workspace",
+      "command":"not real"
+  }
+}

@@ -1,0 +1,67 @@
+[
+    {
+      "name" : "scm",
+      "description" : "Provides a common SCM by using the Maven SCM Project Libraries which is located <a href='http://maven.apache.org/scm/'>here</a>. <br>[url] url of the repository, accepts maven scm urls<br>[path] working copy filesystem location<br>[command] maven scm supported commands<br>[version_type] tag, branch, revision<br>[version] identifier for the version type given<br>[username] user to access remote repository<br>[password]<br>[private_key]<br>[passphrase] ",
+      "author" : "Sandy Squirrel",
+      "version" : "${project.version}-${buildNumber}",
+      "class" : "com.maestrodev.ScmWorker",
+      "type" : "java",
+      "dependencies" : [ {
+        "name" : "${project.artifactId}-${project.version}.jar"
+      }, {
+        "name" : "pom.xml"
+      } ],
+      "task" : {
+        "command" : "/scm/scm",
+        "inputs" : {
+          "command" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "path" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "url" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "version_type" : {
+            "required" : false,
+            "type" : "String",
+            "value" : ""
+          },
+          "version" : {
+            "required" : false,
+            "type" : "String",
+            "value" : ""
+          },
+          "username" : {
+            "required" : false,
+            "type" : "String",
+            "value" : ""
+          },
+          "private_key" : {
+            "required" : false,
+            "type" : "Password",
+            "value" : ""
+          },
+          "passphrase" : {
+            "required" : false,
+            "type" : "Password",
+            "value" : ""
+          },
+          "password" : {
+            "required" : false,
+            "type" : "Password",
+            "value" : ""
+          }
+        },
+        "outputs" : {},
+        "tool_name" : "SCM"
+      }
+    }
+]
