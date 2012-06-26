@@ -45,19 +45,19 @@ public class ScmWorkerTest
      /**
      * Test for scm
      */
-    @Test
-    public void update()
-        throws Exception
-    {
-        ScmWorker worker = new ScmWorker();
-
-        worker.setWorkitem( loadJson( "update" ) );
-
-        
-        worker.scm();
-        System.out.println(worker.getError());
-        assertNull( worker.getError() );        
-    }
+//    @Test
+//    public void update()
+//        throws Exception
+//    {
+//        ScmWorker worker = new ScmWorker();
+//
+//        worker.setWorkitem( loadJson( "update" ) );
+//
+//        
+//        worker.scm();
+//        System.out.println(worker.getError());
+//        assertNull( worker.getError() );        
+//    }
     
     @Test
     public void failOnConnect()
