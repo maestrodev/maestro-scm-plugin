@@ -1,6 +1,6 @@
 {
   "fields": {
-      "url":"scm:svn:https://github.com/maestrodev/maestro-jenkins-plugin",
+      "url":"scm:git:https://github.com/maestrodev/maestro-jenkins-plugin",
       "username":"maestrodevci",
       "path":"/tmp/jenkins-plugin",
       "command":"checkout"
