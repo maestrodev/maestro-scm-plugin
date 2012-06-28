@@ -10,6 +10,25 @@ Manifest:
 * README.md (this file)
 
 ## The Perforce Task
+The Perforce task supports several commands which can be entered in the command field, they are:
+
+branch - branch the project
+validate - validate the scm information in the pom
+* **add** - command to add file
+* **unedit** - command to stop editing the working copy
+* **export** - command to get a fresh exported copy
+* **bootstrap** - command to checkout and build a project
+* **changelog** - command to show the source code revisions
+* **list** - command for get the list of project files
+* **checkin** - command for commiting changes
+* **checkout** - command for getting the source code
+* **status** - command for showing the scm status of the working copy
+* **update** - command for updating the working copy with the latest changes
+* **diff**- command for showing the difference of the working copy with the remote one
+* **update** -subprojects - command for updating all projects in a multi project build
+* **edit** - command for starting edit on the working copy
+* **tag** - command for tagging a certain revision
+
 This SCM plugin requires a few inputs:
 
 * **host** (location of the repository)
