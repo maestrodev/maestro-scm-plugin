@@ -31,11 +31,11 @@ public class ScmWorker
     extends MaestroWorker
 {
 
-    private final  org.slf4j.Logger logger =  LoggerFactory.getLogger(this.getClass());
+    protected final  org.slf4j.Logger logger =  LoggerFactory.getLogger(this.getClass());
     
 //    add, add, addScmProvider, blame, branch, branch, changeLog, changeLog, changeLog, changeLog, checkIn, checkIn, checkOut, checkOut, checkOut, checkOut, cleanScmUrl, diff, edit, export, export, export, export, getProviderByRepository, getProviderByType, getProviderByUrl, list, makeProviderScmRepository, makeScmRepository, mkdir, remove, setScmProvider, setScmProviderImplementation, setScmProviders, status, tag, tag, unedit, update, update, update, update, update, update, update, update, update, update, validateScmRepository
     
-    private final static String [] commands = {
+    protected final static String [] commands = {
         "branch",
         "validate",
         "add",
@@ -54,7 +54,11 @@ public class ScmWorker
         "tag"
     };
     
-    private ScmVersion getScmVersion()
+    protected org.slf4j.Logger getLogger() {
+        return logger;
+    }
+    
+    protected ScmVersion getScmVersion()
     {
         ScmVersion scmVersion = null;
         if ( "tag".equals( getField("version_type") ) )
@@ -171,7 +175,7 @@ public class ScmWorker
          throw new Exception( "Unknown '" + getField("versionType") + "' version type." );
      }
 
-    private void setupProviders(ScmManager manager) throws Exception
+    protected void setupProviders(ScmManager manager) throws Exception
     {
         manager.setScmProvider("perforce",  new PerforceScmProvider());   
         manager.setScmProvider("p4",  new PerforceScmProvider());   
@@ -190,7 +194,7 @@ public class ScmWorker
         
     }
      
-    private void validateInputs() throws Exception
+    protected void validateInputs() throws Exception
     {
         if(StringUtils.isEmpty(getField("command")))
             throw new Exception("Missing Command Field");
@@ -227,9 +231,9 @@ public class ScmWorker
             
             File checkoutDirectory = new File(getField("path"));
             
-            ScmManager scmManager = new BasicScmManager();
+            ScmManager scmManager = new MaestroScmMananager(this);
             setupProviders(scmManager);
-            
+
             ScmRepository scmRepository = getScmRepository(scmManager);
             
             ScmVersion scmVersion = getScmVersion();
@@ -250,6 +254,7 @@ public class ScmWorker
             writeOutput("SCM Task Completed Successfully For Command " + getField("command") + "\n");
                 
         } catch (Exception e) {
+            e.printStackTrace();
             setError("Maestro Detected Error In SCM Task " + e.getMessage());
         }
         

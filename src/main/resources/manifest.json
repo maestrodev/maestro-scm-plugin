@@ -1,10 +1,10 @@
 [
     {
-      "name" : "scm",
-      "description" : "Provides a common SCM by using the Maven SCM Project Libraries which is located <a href='http://maven.apache.org/scm/'>here</a>. <br>[url] url of the repository, accepts maven scm urls<br>[path] working copy filesystem location<br>[command] maven scm supported commands<br>[version_type] tag, branch, revision<br>[version] identifier for the version type given<br>[username] user to access remote repository<br>[password]<br>[private_key]<br>[passphrase] ",
+      "name" : "perforce",
+      "description" : "Perform Commands Against A Perforce Repository, using the Maven SCM Library <a href='http://maven.apache.org/scm/'>here</a>. <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[command] maven scm supported commands (checkout,update,status,...)<br>[version_type] tag, branch, revision<br>[version] identifier for the version type given<br>[username] user to access remote repository<br>[password] password to login to repository",
       "author" : "Sandy Squirrel",
       "version" : "${project.version}-${buildNumber}",
-      "class" : "com.maestrodev.ScmWorker",
+      "class" : "com.maestrodev.PerforceWorker",
       "type" : "java",
       "dependencies" : [ {
         "name" : "${project.artifactId}-${project.version}.jar"
@@ -12,7 +12,7 @@
         "name" : "pom.xml"
       } ],
       "task" : {
-        "command" : "/scm/scm",
+        "command" : "/perforce/scm",
         "inputs" : {
           "command" : {
             "required" : true,
@@ -24,10 +24,14 @@
             "type" : "String",
             "value" : ""
           },
-          "url" : {
+          "host" : {
             "required" : true,
             "type" : "String",
             "value" : ""
+          },"port" : {
+            "required" : true,
+            "type" : "Integer",
+            "value" : 1666
           },
           "version_type" : {
             "required" : false,
@@ -44,20 +48,25 @@
             "type" : "String",
             "value" : ""
           },
-          "private_key" : {
-            "required" : false,
-            "type" : "Password",
+          "depot" : {
+            "required" : true,
+            "type" : "String",
             "value" : ""
           },
-          "passphrase" : {
+          "project_path" : {
             "required" : false,
-            "type" : "Password",
+            "type" : "String",
             "value" : ""
           },
           "password" : {
             "required" : false,
             "type" : "Password",
             "value" : ""
+          },
+          "auto_login" : {
+            "required" : false,
+            "type" : "Boolean",
+            "value" : false
           }
         },
         "outputs" : {},

@@ -1,0 +1,12 @@
+{
+  "fields": {
+      "host":"somehost",
+      "port":"1666",
+      "depot":"Depot",
+      "username":"bruno",
+      "password":"qlRpphhT5v",
+      "path":"/tmp/centrepoint",
+      "command":"checkout",
+      "auto_login":true
+  }
+}
