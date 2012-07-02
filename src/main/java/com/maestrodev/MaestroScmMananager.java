@@ -13,9 +13,9 @@ import org.apache.maven.scm.manager.BasicScmManager;
  */
 public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
 
-  private MaestroWorker worker;
+  private ScmWorker worker;
   
-  public MaestroScmMananager(MaestroWorker worker){
+  public MaestroScmMananager(ScmWorker worker){
     this.worker = worker;
   }
   
@@ -29,15 +29,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void debug(String string) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void debug(String string, Throwable thrwbl) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void debug(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage() + "\n");
+    worker.bufferOutput(thrwbl.getMessage() + "\n", false);
   }
 
   public boolean isInfoEnabled() {
@@ -45,15 +45,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void info(String string) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void info(String string, Throwable thrwbl) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void info(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage() + "\n");
+    worker.bufferOutput(thrwbl.getMessage() + "\n", false);
   }
 
   public boolean isWarnEnabled() {
@@ -61,15 +61,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void warn(String string) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void warn(String string, Throwable thrwbl) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void warn(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage() + "\n");
+    worker.bufferOutput(thrwbl.getMessage() + "\n", false);
   }
 
   public boolean isErrorEnabled() {
@@ -77,15 +77,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void error(String string) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void error(String string, Throwable thrwbl) {
-    worker.writeOutput(string + "\n");
+    worker.bufferOutput(string + "\n", false);
   }
 
   public void error(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage() + "\n");
+    worker.bufferOutput(thrwbl.getMessage() + "\n", false);
   }
   
 }

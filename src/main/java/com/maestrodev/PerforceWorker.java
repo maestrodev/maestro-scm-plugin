@@ -73,7 +73,9 @@ public class PerforceWorker extends ScmWorker {
     @Override
     public void scm()
     {
+      
         try {
+            this.resetBuffer();
             getLogger().info("Running task perforce");
 
             writeOutput("Validating Inputs For Perforce Tasking\n");
@@ -85,7 +87,7 @@ public class PerforceWorker extends ScmWorker {
             
             super.scm();
             
-            writeOutput("Perforce Task Completed Successfully For Command " + getField("command") + "\n");    
+            bufferOutput("Perforce Task Completed Successfully For Command " + getField("command") + "\n", true);
         } catch (Exception e) {
            e.printStackTrace();
             setError("Maestro Detected Error In Perforce Task " + e.getMessage() + " Make Sure P4 Is Installed And All Input Fields Are Correct.");

@@ -30,7 +30,8 @@ import org.slf4j.LoggerFactory;
 public class ScmWorker
     extends MaestroWorker
 {
-
+    
+    private String output = "";
     protected final  org.slf4j.Logger logger =  LoggerFactory.getLogger(this.getClass());
     
 //    add, add, addScmProvider, blame, branch, branch, changeLog, changeLog, changeLog, changeLog, checkIn, checkIn, checkOut, checkOut, checkOut, checkOut, cleanScmUrl, diff, edit, export, export, export, export, getProviderByRepository, getProviderByType, getProviderByUrl, list, makeProviderScmRepository, makeScmRepository, mkdir, remove, setScmProvider, setScmProviderImplementation, setScmProviders, status, tag, tag, unedit, update, update, update, update, update, update, update, update, update, update, validateScmRepository
@@ -56,6 +57,18 @@ public class ScmWorker
     
     protected org.slf4j.Logger getLogger() {
         return logger;
+    }
+    
+    protected void resetBuffer() {
+      this.output = "";
+    }
+    
+    protected void bufferOutput(String output, boolean force){
+      this.output += output;
+      if(this.output.length() > 2048 || force){
+        writeOutput(this.output);
+        this.output = "";
+      } 
     }
     
     protected ScmVersion getScmVersion()
