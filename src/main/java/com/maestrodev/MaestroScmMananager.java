@@ -29,15 +29,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void debug(String string) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void debug(String string, Throwable thrwbl) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void debug(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage());
+    worker.writeOutput(thrwbl.getMessage() + "\n");
   }
 
   public boolean isInfoEnabled() {
@@ -45,15 +45,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void info(String string) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void info(String string, Throwable thrwbl) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void info(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage());
+    worker.writeOutput(thrwbl.getMessage() + "\n");
   }
 
   public boolean isWarnEnabled() {
@@ -61,15 +61,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void warn(String string) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void warn(String string, Throwable thrwbl) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void warn(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage());
+    worker.writeOutput(thrwbl.getMessage() + "\n");
   }
 
   public boolean isErrorEnabled() {
@@ -77,15 +77,15 @@ public class MaestroScmMananager extends BasicScmManager implements ScmLogger{
   }
 
   public void error(String string) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void error(String string, Throwable thrwbl) {
-    worker.writeOutput(string);
+    worker.writeOutput(string + "\n");
   }
 
   public void error(Throwable thrwbl) {
-    worker.writeOutput(thrwbl.getMessage());
+    worker.writeOutput(thrwbl.getMessage() + "\n");
   }
   
 }
