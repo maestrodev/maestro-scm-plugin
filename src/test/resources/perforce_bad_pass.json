@@ -2,11 +2,16 @@
   "fields": {
       "host":"kellyplummer-474.trials.perforce.com",
       "port":"1666",
-      "depot":"depot",
-      "project_path":"centrepoint",
+      "remote_paths":["//depot/centrepoint/...","//depot/Jam/..."],
       "username":"bruno",
-      "password":"asdfasdfasdf",
-      "path":"/Users/kelly/Perforce/bruno_liquid-snake_7543",
-      "auto_login":true
+      "password":"not real",
+      "path":"/tmp/p4",
+      "force_sync":true,
+      "no_update":false,
+      "bypass_client":false,
+      "bypass_server":false,
+      "delete_client":false,
+      "fail_on_up_to_date":true,
+      "clean_working_copy":false
   }
 }

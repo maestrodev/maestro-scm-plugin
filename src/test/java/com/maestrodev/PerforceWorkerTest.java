@@ -25,7 +25,7 @@ public class PerforceWorkerTest
      * Test for scm
      */
     @Test
-    public void checkout()
+    public void sync()
         throws Exception
     {
         
@@ -37,7 +37,7 @@ public class PerforceWorkerTest
         if(wd.exists())
             FileUtils.deleteDirectory(wd);
         
-        worker.scm();
+        worker.sync();
 
         assertNull( worker.getError() );        
     }
@@ -54,65 +54,12 @@ public class PerforceWorkerTest
 
         worker.setWorkitem( loadJson( "perforce_bad_pass" ) );
         
-        worker.scm();
+        worker.sync();
 
-        assertEquals("Maestro Detected Error In Perforce Task Unable To Login, Password invalid. Make Sure P4 Is Installed And All Input Fields Are Correct.",  worker.getError().replaceAll("\n", "") );        
+        assertEquals("Maestro Detected Error In Perforce Task Password invalid. Make Sure All Input Fields Are Valid.",  worker.getError().replaceAll("\n", "") );        
     }
     
-    @Test
-    public void generateUrl() throws Exception
-    {
-        PerforceWorker worker = new PerforceWorker();
 
-        worker.setWorkitem( loadJson( "perforce" ) );
-        
-        worker.validatePerforceInputs();
-        
-        assertEquals("scm:perforce:kellyplummer-474.trials.perforce.com:1666://depot/centrepoint", worker.getField("url"));
-    }
-    
-    @Test
-    public void generateUrlWithoutProjectPath() throws Exception
-    {
-        PerforceWorker worker = new PerforceWorker();
-
-        worker.setWorkitem( loadJson( "perforce_no_project" ) );
-        
-        worker.validatePerforceInputs();
-        
-        assertEquals("scm:perforce:somehost:1666://Depot", worker.getField("url"));
-    }
-    
-    
-    @Test
-    public void failOnConnect()
-            throws Exception
-    {
-        ScmWorker worker = new PerforceWorker();
-
-        worker.setWorkitem( loadJson( "failure" ) );
-
-        
-        worker.scm();
-        
-        System.out.println(worker.getError());
-        assertNotNull( worker.getError() );        
-    }
-    
-    @Test
-    public void failOnMissingCommand()
-            throws Exception
-    {
-        ScmWorker worker = new PerforceWorker();
-
-        worker.setWorkitem( loadJson( "failure_missing_command" ) );
-
-        
-        worker.scm();
-        
-        System.out.println(worker.getError());
-        assertNotSame( worker.getError(), "Maestro Detected Error In SCM Task Unsupported Command not real" );        
-    }
     
     public JSONObject loadJson( String name )
         throws IOException, ParseException

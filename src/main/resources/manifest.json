@@ -1,8 +1,8 @@
 [
     {
-      "name" : "perforce",
-      "description" : "Perform Commands Against A Perforce Repository, using the Maven SCM Library <a href='http://maven.apache.org/scm/'>here</a>. <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[command] maven scm supported commands (checkout,update,status,...)<br>[version_type] tag, branch, revision<br>[version] identifier for the version type given<br>[username] user to access remote repository<br>[password] password to login to repository",
-      "author" : "Sandy Squirrel",
+      "name" : "perforce sync",
+      "description" : "Sync Against A Perforce Repository. <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[command] maven scm supported commands (checkout,update,status,...)<br>[version_type] tag, branch, revision<br>[version] identifier for the version type given<br>[username] user to access remote repository<br>[password] password to login to repository",
+      "author" : "Kelly Plummer",
       "version" : "${project.version}-${buildNumber}",
       "class" : "com.maestrodev.PerforceWorker",
       "type" : "java",
@@ -12,13 +12,8 @@
         "name" : "pom.xml"
       } ],
       "task" : {
-        "command" : "/perforce/scm",
+        "command" : "/perforce/sync",
         "inputs" : {
-          "command" : {
-            "required" : true,
-            "type" : "String",
-            "value" : ""
-          },
           "path" : {
             "required" : true,
             "type" : "String",
@@ -28,43 +23,59 @@
             "required" : true,
             "type" : "String",
             "value" : ""
-          },"port" : {
+          },
+          "port" : {
             "required" : true,
             "type" : "Integer",
             "value" : 1666
-          },
-          "version_type" : {
-            "required" : false,
-            "type" : "String",
-            "value" : ""
-          },
-          "version" : {
-            "required" : false,
-            "type" : "String",
-            "value" : ""
           },
           "username" : {
             "required" : false,
             "type" : "String",
             "value" : ""
           },
-          "depot" : {
+          "remote_paths" : {
             "required" : true,
-            "type" : "String",
-            "value" : ""
-          },
-          "project_path" : {
-            "required" : false,
-            "type" : "String",
-            "value" : ""
+            "type" : "Array",
+            "value" : ["//depot/someproject"]
           },
           "password" : {
-            "required" : false,
+            "required" : true,
             "type" : "Password",
             "value" : ""
           },
-          "auto_login" : {
-            "required" : false,
+           "force_sync" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "no_update" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "bypass_client" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "bypass_server" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "delete_client" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "fail_on_up_to_date" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "clean_working_copy" : {
+            "required" : true,
             "type" : "Boolean",
             "value" : false
           }
