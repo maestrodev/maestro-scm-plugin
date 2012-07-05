@@ -1,7 +1,7 @@
 [
     {
       "name" : "perforce sync",
-      "description" : "Sync Against A Perforce Repository. <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[username] user to access remote repository<br>[password] password to login to repository<br>[path] perforce workspace root<br>[remote_paths] a list of perforce formatted view paths<br>[force_sync] <br>[no_update] <br>[bypass_client] <br>[bypass_server] <br>[delete_client] delete the client after performing task<br>[fail_on_up_to_date] task will fail if files are up to date<br>[clean_working_copy] removes the files from the workspace root",
+      "description" : "Sync Against A Perforce Repository. <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[username] user to access remote repository<br>[password] password to login to repository<br>[path] perforce workspace root<br>[client_name] name of the client to be specified<br>[view_mappings] list of client spec view mappings, how depot files will be 'mapped' into your workspace<br>[force_sync] <br>[no_update] <br>[bypass_client] <br>[bypass_server] <br>[delete_client] delete the client after performing task<br>[fail_on_up_to_date] task will fail if files are up to date<br>[clean_working_copy] removes the files from the workspace root",
       "author" : "Kelly Plummer",
       "version" : "${project.version}-${buildNumber}",
       "class" : "com.maestrodev.PerforceWorker",
@@ -34,10 +34,15 @@
             "type" : "String",
             "value" : ""
           },
-          "remote_paths" : {
+          "client_name" : {
+            "required" : false,
+            "type" : "String",
+            "value" : "ClientName"
+          },
+          "view_mappings" : {
             "required" : true,
             "type" : "Array",
-            "value" : ["//depot/someproject"]
+            "value" : ["//depot/someproject/... //ClientName/someproject/..."]
           },
           "password" : {
             "required" : true,

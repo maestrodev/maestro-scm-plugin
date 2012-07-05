@@ -2,7 +2,8 @@
   "fields": {
       "host":"kellyplummer-474.trials.perforce.com",
       "port":"1666",
-      "remote_paths":["//depot/centrepoint/...","//depot/Jam/...","//system/...","//gwt/trunk/..."],
+      "client_name":"someClient",
+      "view_mappings":["//depot/centrepoint/... //someClient/Centrepoint/...","//depot/Jam/...  //someClient/JAM/..."],
       "username":"bruno",
       "password":"qlRpphhT5v",
       "path":"/tmp/p4",

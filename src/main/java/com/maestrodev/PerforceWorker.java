@@ -17,15 +17,11 @@ import com.perforce.p4java.impl.generic.client.ClientView.ClientViewMapping;
 import com.perforce.p4java.impl.mapbased.client.Client;
 import com.perforce.p4java.server.IServer;
 import com.perforce.p4java.server.ServerFactory;
-import java.io.*;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.text.StyledEditorKit;
-import org.apache.commons.exec.*;
 import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.StringUtils;
 
@@ -46,6 +42,9 @@ public class PerforceWorker extends ScmWorker {
             throw new Exception("Missing Port Field");
         if(StringUtils.isEmpty(getField("path")))
             throw new Exception("Missing path Field");
+        if(StringUtils.isEmpty(getField("client_name")))
+            throw new Exception("Missing client_name Field");
+        
         
         if(getField("force_sync") == null)
             throw new Exception("Missing force_sync Field");
@@ -64,8 +63,8 @@ public class PerforceWorker extends ScmWorker {
             throw new Exception("Missing clean_working_copy Field");
         
         Map fields = getFields();
-        if(getField("remote_paths") == null || !(fields.get("remote_paths") instanceof List))
-          throw new Exception("Missing or Empty remote_paths Field");
+        if(getField("view_mappings") == null || !(fields.get("view_mappings") instanceof List))
+          throw new Exception("Missing or Empty view_mappings Field");
 
         String url = String.format("p4java://%s:%s",
                 getField("host"),
@@ -76,14 +75,20 @@ public class PerforceWorker extends ScmWorker {
         setField("url", url);
     }
     
-    private ClientView getClientView(String name){
+    private ClientView getClientView() throws Exception{
       ClientView view = new ClientView();
 
-      for(Object remotePath: (List)getFields().get("remote_paths")){
+      for(Object viewMapping: (List)getFields().get("view_mappings")){
         ClientViewMapping tempMappingEntry = new ClientViewMapping();
 
-        tempMappingEntry.setLeft("//" + remotePath.toString().replaceAll("\\/\\/", ""));
-        tempMappingEntry.setRight("//" + name + remotePath.toString().replaceAll("\\/\\/", "/"));
+        Pattern p = Pattern.compile("[\\s]+");
+        // Split input with the pattern
+        String [] depotAndClient =
+                 p.split(viewMapping.toString());
+        if(depotAndClient.length != 2)
+          throw new Exception("Invalid View Mapping " + viewMapping);
+        tempMappingEntry.setLeft(depotAndClient[0]);
+        tempMappingEntry.setRight(depotAndClient[1]);
         tempMappingEntry.setType(EntryType.INCLUDE);
 
         view.addEntry(tempMappingEntry);
@@ -91,7 +96,7 @@ public class PerforceWorker extends ScmWorker {
       return view;
     }
     
-    private IClient getClient(IServer server, String name) throws ConnectionException, RequestException, AccessException, UnknownHostException{
+    private IClient getClient(IServer server, String name) throws ConnectionException, RequestException, AccessException, UnknownHostException, Exception{
         IClient client = server.getClient(name);
 
         if(client == null){
@@ -108,7 +113,7 @@ public class PerforceWorker extends ScmWorker {
   
         IClientSummary.IClientOptions options = new ClientOptions(false, true, false, false, false, false);
         client.setOptions(options);
-        client.setClientView(getClientView(name));
+        client.setClientView(getClientView());
 
         server.updateClient(client);
         server.setCurrentClient(client);
@@ -171,7 +176,7 @@ public class PerforceWorker extends ScmWorker {
 
             server = getServer();
                         
-            IClient client = getClient(server, java.net.InetAddress.getLocalHost().getHostName());
+            IClient client = getClient(server, getField("client_name"));
             
 
             List<IFileSpec> syncList = client.sync(
@@ -188,7 +193,7 @@ public class PerforceWorker extends ScmWorker {
         } finally {
           try {
           if(server != null && Boolean.parseBoolean(getField("delete_client")))
-            server.deleteClient(java.net.InetAddress.getLocalHost().getHostName(), true);
+            server.deleteClient(getField("client_name"), true);
           } catch(Exception e) {
             setError("Unable To remove Temporary Client From Server " + e.getMessage());
           }

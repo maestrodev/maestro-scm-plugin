@@ -26,7 +26,8 @@ The Perforce Sync Task requires a few inputs:
 * **host** (location of the repository)
 * **port** (port the server is listening to)
 * **path** (filesystem location of the working copy)
-* **remote_paths** (a list of perforce formatted view paths)
+* **client_name** (name of the client to be specified)
+* **view_mappings** (list of client spec view mappings, how depot files will be 'mapped' into your workspace)
 * **username** (username for connecting to remote repositories)
 * **password** (password for connecting to remote repositories)
 * **force_sync** (Perforce performs the sync even if the client workspace already has the file at the specified revision. If the file is writable, it is overwritten.
