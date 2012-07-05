@@ -21,11 +21,12 @@ brings the client workspace into sync with the depot by copying files matching i
 		If the file argument includes a revision range, only files selected by the revision range are updated, and the highest revision in the range is used. Files that are no longer in the workspace view are not affected if the file argument includes a revision range.
 		The newly synced files are not available for editing until opened with p4 edit or p4 delete. Newly synced files are read-only; p4 edit and p4 delete make the files writable. Under normal circumstances, do not use your operating system's commands to make the files writable; instead, use Perforce to do this for you.
 
-This SCM plugin requires a few inputs:
+The Perforce Sync Task requires a few inputs:
 
 * **host** (location of the repository)
 * **port** (port the server is listening to)
 * **path** (filesystem location of the working copy)
+* **remote_paths** (a list of perforce formatted view paths)
 * **username** (username for connecting to remote repositories)
 * **password** (password for connecting to remote repositories)
 * **force_sync** (Perforce performs the sync even if the client workspace already has the file at the specified revision. If the file is writable, it is overwritten.
