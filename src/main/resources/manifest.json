@@ -88,5 +88,70 @@
         "outputs" : {},
         "tool_name" : "SCM"
       }
+    },
+    {
+      "name" : "perforce label",
+      "description" : "Apply A Label To A Perforce Repository. <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[username] user to access remote repository<br>[password] password to login to repository<br>[path] perforce workspace root<br>[client_name] name of the client to be specified<br>[view_mappings] list of client spec view mappings, how depot files will be 'mapped' into your workspace<br>[name] name to use for the label<br>[description] descritpion to use for the label<br>[update_server] updates label on server<br>",
+      "author" : "Kelly Plummer",
+      "version" : "${project.version}-${buildNumber}",
+      "class" : "com.maestrodev.PerforceWorker",
+      "type" : "java",
+      "dependencies" : [ {
+        "name" : "${project.artifactId}-${project.version}.jar"
+      }, {
+        "name" : "pom.xml"
+      } ],
+      "task" : {
+        "command" : "/perforce/label",
+        "inputs" : {
+          "host" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "port" : {
+            "required" : true,
+            "type" : "Integer",
+            "value" : 1666
+          },
+          "username" : {
+            "required" : false,
+            "type" : "String",
+            "value" : ""
+          },
+          "client_name" : {
+            "required" : false,
+            "type" : "String",
+            "value" : "ClientName"
+          },
+          "view_mappings" : {
+            "required" : true,
+            "type" : "Array",
+            "value" : ["//depot/someproject/... //ClientName/someproject/..."]
+          },
+          "password" : {
+            "required" : true,
+            "type" : "Password",
+            "value" : ""
+          },
+          "name" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "description" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "update_server" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          }
+        },
+        "outputs" : {},
+        "tool_name" : "SCM"
+      }
     }
 ]

@@ -20,6 +20,23 @@ public class PerforceWorkerTest
 {
     private static final JSONParser parser = new JSONParser();
 
+    /**
+     * Test for scm
+     */
+    @Test
+    public void label()
+        throws Exception
+    {
+        
+        PerforceWorker worker = new PerforceWorker();
+
+        worker.setWorkitem( loadJson( "perforce_label" ) );
+        
+        worker.label();
+        
+
+        assertNull( worker.getError() );        
+    }
     
     /**
      * Test for scm

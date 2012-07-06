@@ -6,7 +6,9 @@ package com.maestrodev;
 
 import com.perforce.p4java.client.IClient;
 import com.perforce.p4java.client.IClientSummary;
+import com.perforce.p4java.core.ILabelMapping;
 import com.perforce.p4java.core.IMapEntry.EntryType;
+import com.perforce.p4java.core.ViewMap;
 import com.perforce.p4java.core.file.FileSpecBuilder;
 import com.perforce.p4java.core.file.FileSpecOpStatus;
 import com.perforce.p4java.core.file.IFileSpec;
@@ -14,6 +16,7 @@ import com.perforce.p4java.exception.*;
 import com.perforce.p4java.impl.generic.client.ClientOptions;
 import com.perforce.p4java.impl.generic.client.ClientView;
 import com.perforce.p4java.impl.generic.client.ClientView.ClientViewMapping;
+import com.perforce.p4java.impl.generic.core.Label;
 import com.perforce.p4java.impl.mapbased.client.Client;
 import com.perforce.p4java.server.IServer;
 import com.perforce.p4java.server.ServerFactory;
@@ -34,7 +37,7 @@ public class PerforceWorker extends ScmWorker {
     
     private static final String UP_TO_DATE = "file(s) up-to-date";
   
-    public void validatePerforceInputs() throws Exception
+    public void validatePerforceSyncInputs() throws Exception
     {
         if(StringUtils.isEmpty(getField("host")))
             throw new Exception("Missing Host Field");
@@ -74,6 +77,7 @@ public class PerforceWorker extends ScmWorker {
         
         setField("url", url);
     }
+    
     
     private ClientView getClientView() throws Exception{
       ClientView view = new ClientView();
@@ -172,7 +176,7 @@ public class PerforceWorker extends ScmWorker {
               writeOutput("Cleaning Working Copy At " + getField("path") + "\n" + removePath + "\n");
             }
             
-            validatePerforceInputs();
+            validatePerforceSyncInputs();
 
             server = getServer();
                         
@@ -200,5 +204,127 @@ public class PerforceWorker extends ScmWorker {
         }
         
     }
+ 
     
+    public void validatePerforceLabelInputs() throws Exception
+    {
+        if(StringUtils.isEmpty(getField("host")))
+            throw new Exception("Missing Host Field");
+        if(StringUtils.isEmpty(getField("port")))
+            throw new Exception("Missing Port Field");
+        if(StringUtils.isEmpty(getField("name")))
+            throw new Exception("Missing name Field");
+        if(StringUtils.isEmpty(getField("description")))
+            throw new Exception("Missing description Field");    
+        if(StringUtils.isEmpty(getField("client_name")))
+            throw new Exception("Missing description Field");
+        
+        if(getField("update_server") == null)
+            throw new Exception("Missing update_server Field");
+        
+        Map fields = getFields();
+        if(getField("view_mappings") == null || !(fields.get("view_mappings") instanceof List))
+          throw new Exception("Missing or Empty view_mappings Field");
+
+        String url = String.format("p4java://%s:%s",
+                getField("host"),
+                getField("port")
+                );
+        
+        
+        setField("url", url);
+    }
+    
+    private ViewMap<ILabelMapping> getLabelView() throws Exception{
+      ViewMap<ILabelMapping> view = new ViewMap<ILabelMapping>();
+
+      for(Object viewMapping: (List)getFields().get("view_mappings")){
+        ILabelMapping tempMappingEntry = new Label.LabelMapping();
+
+        Pattern p = Pattern.compile("[\\s]+");
+        // Split input with the pattern
+        String [] depotAndClient =
+                 p.split(viewMapping.toString());
+        if(depotAndClient.length != 2)
+          throw new Exception("Invalid View Mapping " + viewMapping);
+        tempMappingEntry.setLeft(depotAndClient[0]);
+        tempMappingEntry.setRight(depotAndClient[1]);
+        tempMappingEntry.setType(EntryType.INCLUDE);
+
+        view.addEntry(tempMappingEntry);
+      }
+      return view;
+    }
+    
+    public void label()
+    {
+        IServer server = null;
+
+        try {
+            this.resetBuffer();
+            getLogger().info("Running task perforce label");
+
+            writeOutput("Validating Inputs For Perforce Tasking\n");
+           
+            
+            validatePerforceLabelInputs();
+
+            server = getServer();
+            
+            Label label = Label.newLabel(server, getField("name"), getField("description"), null);
+            label.setServer(server);
+            label.setViewMapping(getLabelView());
+            String result = "";
+            if(Boolean.parseBoolean(getField("update_server")))
+              result = label.updateOnServer();
+            writeOutput("\nPerforce Label Task Completed Successfully " + result + " \n");
+        } catch (Exception e) {
+            setError("Maestro Detected Error In Perforce Task " + e.getMessage() + " Make Sure All Input Fields Are Valid.\n");
+        }
+        
+    }
+    
+//    public void submit()
+//    {
+//        IServer server = null;
+//
+//        try {
+//            this.resetBuffer();
+//            getLogger().info("Running task perforce");
+//
+//            writeOutput("Validating Inputs For Perforce Tasking\n");
+//           
+//            if(Boolean.parseBoolean(getField("clean_working_copy"))){
+//              String removePath = FileUtils.removePath(getField("path"));
+//              writeOutput("Cleaning Working Copy At " + getField("path") + "\n" + removePath + "\n");
+//            }
+//            
+//            validatePerforceInputs();
+//
+//            server = getServer();
+//                        
+//            IClient client = getClient(server, getField("client_name"));
+//            
+//
+//            List<IFileSpec> syncList = client.sync(
+//                              FileSpecBuilder.makeFileSpecList(getField("path") + "/..."),
+//                              Boolean.parseBoolean(getField("force_update")),
+//                              Boolean.parseBoolean(getField("no_update")),
+//                              Boolean.parseBoolean(getField("client_bypass")),
+//                              Boolean.parseBoolean(getField("server_bypass")));
+//            
+//            processSyncList(syncList);
+//            writeOutput("\nPerforce Sync Task Completed Successfully\n");
+//        } catch (Exception e) {
+//            setError("Maestro Detected Error In Perforce Task " + e.getMessage() + " Make Sure All Input Fields Are Valid.\n");
+//        } finally {
+//          try {
+//          if(server != null && Boolean.parseBoolean(getField("delete_client")))
+//            server.deleteClient(getField("client_name"), true);
+//          } catch(Exception e) {
+//            setError("Unable To remove Temporary Client From Server " + e.getMessage());
+//          }
+//        }
+//        
+//    }
 }

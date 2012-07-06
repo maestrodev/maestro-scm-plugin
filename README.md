@@ -38,5 +38,23 @@ The Perforce Sync Task requires a few inputs:
 * **fail_on_up_to_date** (causes the task to fail if the given workspace is up to date)
 * **clean_working_copy** (removes the workspace root before performing the sync task)
 
+
+## The Perforce Label Task
+The Perforce Label Task
+
+A named list of user-specified file revisions.
+
+* **host** (location of the repository)
+* **port** (port the server is listening to)
+* **path** (filesystem location of the working copy)
+* **client_name** (name of the client to be specified)
+* **view_mappings** (list of client spec view mappings, how depot files will be 'mapped' into your workspace)
+* **username** (username for connecting to remote repositories)
+* **password** (password for connecting to remote repositories)
+* **name** (name to use for the label)
+* **description** (descritpion to use for the label)
+* **update_server** (updates label on server)
+
+
 ## License
 Apache 2.0 License: <http://www.apache.org/licenses/LICENSE-2.0.html>

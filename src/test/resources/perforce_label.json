@@ -1,0 +1,13 @@
+{
+  "fields": {
+      "host":"kellyplummer-474.trials.perforce.com",
+      "port":"1666",
+      "client_name":"someClient",
+      "view_mappings":["//depot/centrepoint/... //someClient/Centrepoint/...","//depot/Jam/...  //someClient/JAM/..."],
+      "username":"bruno",
+      "password":"qlRpphhT5v",
+      "name":"somelabel",
+      "description":"a great description",
+      "update_server":true
+  }
+}
