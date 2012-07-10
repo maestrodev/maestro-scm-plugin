@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.io.IOUtils;
@@ -81,7 +82,7 @@ public class PerforceWorkerTest
         throws Exception
     {
         PerforceWorker worker = new PerforceWorker();
-
+        FileUtils.write(new File("/tmp/p4/Centrepoint/README"), "Hello ");
         worker.setWorkitem( loadJson( "perforce_submit" ) );
         
         worker.submit();

@@ -3,7 +3,7 @@
       "host":"localhost",
       "port":"1666",
       "client_name":"someClient",
-      "file_list":["/tmp/p4/Centrepoint/pom.xml"],
+      "file_list":["/tmp/p4/Centrepoint/README"],
       "view_mappings":["//depot/centrepoint/... //someClient/Centrepoint/..."],
       "username":"guest",
       "password":"guest",
