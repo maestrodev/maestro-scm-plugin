@@ -1,17 +1,17 @@
 {
   "fields": {
-      "host":"kellyplummer-474.trials.perforce.com",
+      "host":"localhost",
       "port":"1666",
       "client_name":"someClient",
-      "view_mappings":["//depot/centrepoint/... //someClient/Centrepoint/...","//depot/Jam/...  //someClient/JAM/..."],
-      "username":"bruno",
-      "password":"qlRpphhT5v",
+      "view_mappings":["//depot/centrepoint/... //someClient/Centrepoint/..."],
+      "username":"guest",
+      "password":"guest",
       "path":"/tmp/p4",
       "force_sync":true,
       "no_update":false,
       "bypass_client":false,
       "bypass_server":false,
-      "delete_client":true,
+      "delete_client":false,
       "fail_on_up_to_date":false,
       "clean_working_copy":false
   }

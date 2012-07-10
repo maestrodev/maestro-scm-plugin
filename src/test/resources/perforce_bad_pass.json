@@ -1,10 +1,10 @@
 {
   "fields": {
-      "host":"kellyplummer-474.trials.perforce.com",
+      "host":"localhost",
       "port":"1666",
       "client_name":"someClient",
       "view_mappings":["//depot/centrepoint/... //someClient/Centrepoint/...","//depot/Jam/...  //someClient/JAM/..."],
-      "username":"bruno",
+      "username":"guest",
       "password":"not real",
       "path":"/tmp/p4",
       "force_sync":true,

@@ -56,5 +56,37 @@ A named list of user-specified file revisions.
 * **update_server** (updates label on server)
 
 
+## The Perforce Edit Task
+The Perforce Edit Task
+
+Open files in workspace for editing.
+
+* **host** (location of the repository)
+* **port** (port the server is listening to)
+* **path** (filesystem location of the working copy)
+* **client_name** (name of the client to be specified)
+* **file_list** (list of files to open for editing)
+* **view_mappings** (list of client spec view mappings, how depot files will be 'mapped' into your workspace)
+* **username** (username for connecting to remote repositories)
+* **password** (password for connecting to remote repositories)
+* **no_update** (if true, don't actually do the open, just return the files that would have been opened for edit)
+* **bypass_client_update** (if true, the edit bypasses any client file update. Equivalent to the new 2009.2 and later '-k' option. If set true with a Perforce server earlier than 2009.2, will produce a suitable RequestException)
+
+
+## The Perforce Submit Task
+The Perforce Submit Task
+
+Submit a changelist to the repository server.
+
+* **host** (location of the repository)
+* **port** (port the server is listening to)
+* **path** (filesystem location of the working copy)
+* **client_name** (name of the client to be specified)
+* **view_mappings** (list of client spec view mappings, how depot files will be 'mapped' into your workspace)
+* **username** (username for connecting to remote repositories)
+* **password** (password for connecting to remote repositories)
+* **reopen** (password for connecting to remote repositories)
+* **message** (string describing the submit)
+
 ## License
 Apache 2.0 License: <http://www.apache.org/licenses/LICENSE-2.0.html>

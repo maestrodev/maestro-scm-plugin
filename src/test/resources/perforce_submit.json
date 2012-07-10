@@ -6,8 +6,9 @@
       "view_mappings":["//depot/centrepoint/... //someClient/Centrepoint/..."],
       "username":"guest",
       "password":"guest",
-      "name":"somelabel",
-      "description":"a great description",
-      "update_server":true
+      "path":"/tmp/p4",
+      "delete_client":false,
+      "reopen":false,
+      "message":"thanks for watchin!"
   }
 }

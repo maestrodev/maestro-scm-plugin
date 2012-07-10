@@ -153,5 +153,140 @@
         "outputs" : {},
         "tool_name" : "SCM"
       }
+    },
+    {
+      "name" : "perforce submit",
+      "description" : "Submit the default changelist to a Perforce Repository. <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[username] user to access remote repository<br>[password] password to login to repository<br>[path] perforce workspace root<br>[client_name] name of the client to be specified<br>[view_mappings] list of client spec view mappings, how depot files will be 'mapped' into your workspace<br>[reopen] if true, reopen the submitted files for editing after a successful submit<br>[message] string describing the submit<br>",
+      "author" : "Kelly Plummer",
+      "version" : "${project.version}-${buildNumber}",
+      "class" : "com.maestrodev.PerforceWorker",
+      "type" : "java",
+      "dependencies" : [ {
+        "name" : "${project.artifactId}-${project.version}.jar"
+      }, {
+        "name" : "pom.xml"
+      } ],
+      "task" : {
+        "command" : "/perforce/submit",
+        "inputs" : {
+          "path" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "host" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "port" : {
+            "required" : true,
+            "type" : "Integer",
+            "value" : 1666
+          },
+          "username" : {
+            "required" : false,
+            "type" : "String",
+            "value" : ""
+          },
+          "client_name" : {
+            "required" : false,
+            "type" : "String",
+            "value" : "ClientName"
+          },
+          "view_mappings" : {
+            "required" : true,
+            "type" : "Array",
+            "value" : ["//depot/someproject/... //ClientName/someproject/..."]
+          },
+          "password" : {
+            "required" : true,
+            "type" : "Password",
+            "value" : ""
+          },
+           "reopen" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "message" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          }
+        },
+        "outputs" : {},
+        "tool_name" : "SCM"
+      }
+    },
+    {
+      "name" : "perforce edit",
+      "description" : "Open files for editing <br>[host] hostname of the repository<br>[port] port the repository is listening on<br>[username] user to access remote repository<br>[password] password to login to repository<br>[path] perforce workspace root<br>[client_name] name of the client to be specified<br>[file_list] list of files to open for editing<br>[view_mappings] list of client spec view mappings, how depot files will be 'mapped' into your workspace<br>[no_update] if true, don't actually do the open, just return the files that would have been opened for edit<br>[bypass_client_update] if true, the edit bypasses any client file update. Equivalent to the new 2009.2 and later '-k' option. If set true with a Perforce server earlier than 2009.2, will produce a suitable RequestException.<br>",
+      "author" : "Kelly Plummer",
+      "version" : "${project.version}-${buildNumber}",
+      "class" : "com.maestrodev.PerforceWorker",
+      "type" : "java",
+      "dependencies" : [ {
+        "name" : "${project.artifactId}-${project.version}.jar"
+      }, {
+        "name" : "pom.xml"
+      } ],
+      "task" : {
+        "command" : "/perforce/edit",
+        "inputs" : {
+          "path" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "host" : {
+            "required" : true,
+            "type" : "String",
+            "value" : ""
+          },
+          "port" : {
+            "required" : true,
+            "type" : "Integer",
+            "value" : 1666
+          },
+          "username" : {
+            "required" : false,
+            "type" : "String",
+            "value" : ""
+          },
+          "client_name" : {
+            "required" : false,
+            "type" : "String",
+            "value" : "ClientName"
+          },
+          "file_list" : {
+            "required" : true,
+            "type" : "Array",
+            "value" : ["/some/local"]
+          },
+          "view_mappings" : {
+            "required" : true,
+            "type" : "Array",
+            "value" : ["//depot/someproject/... //ClientName/someproject/..."]
+          },
+          "password" : {
+            "required" : true,
+            "type" : "Password",
+            "value" : ""
+          },
+           "no_update" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          },
+           "bypass_client_update" : {
+            "required" : true,
+            "type" : "Boolean",
+            "value" : false
+          }
+        },
+        "outputs" : {},
+        "tool_name" : "SCM"
+      }
     }
 ]

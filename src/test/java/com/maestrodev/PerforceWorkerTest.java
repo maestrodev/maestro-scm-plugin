@@ -20,7 +20,26 @@ public class PerforceWorkerTest
 {
     private static final JSONParser parser = new JSONParser();
 
+  
+    
     /**
+     * Test for scm
+     */
+    @Test
+    public void sync()
+        throws Exception
+    {
+        
+        PerforceWorker worker = new PerforceWorker();
+
+        worker.setWorkitem( loadJson( "perforce" ) );
+
+        worker.sync();
+
+        assertNull( worker.getError() );        
+    }
+ 
+      /**
      * Test for scm
      */
     @Test
@@ -37,28 +56,39 @@ public class PerforceWorkerTest
 
         assertNull( worker.getError() );        
     }
-    
-    /**
+       /**
      * Test for scm
      */
     @Test
-    public void sync()
+    public void edit()
         throws Exception
     {
         
         PerforceWorker worker = new PerforceWorker();
 
-        worker.setWorkitem( loadJson( "perforce" ) );
-
-        File wd = new File(worker.getField("path"));
-        if(wd.exists())
-            FileUtils.deleteDirectory(wd);
+        worker.setWorkitem( loadJson( "perforce_edit" ) );
         
-        worker.sync();
+        worker.edit();
 
         assertNull( worker.getError() );        
     }
+    
+     /**
+     * Test for scm
+     */
+    @Test
+    public void submit()
+        throws Exception
+    {
+        PerforceWorker worker = new PerforceWorker();
 
+        worker.setWorkitem( loadJson( "perforce_submit" ) );
+        
+        worker.submit();
+
+        assertNull( worker.getError() );        
+    }
+    
      /**
      * Test for scm
      */
