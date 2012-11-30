@@ -39,7 +39,7 @@ public class ScmWorkerTest
         
         worker.scm();
 
-        assertNull( worker.getError() );        
+        assertNull( worker.getError(), worker.getError() );
     }
 
      /**

@@ -1,13 +1,12 @@
 package com.maestrodev;
 
-import java.io.File;
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Random;
-import org.apache.commons.io.FileUtils;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -37,7 +36,7 @@ public class PerforceWorkerTest
 
         worker.sync();
 
-        assertNull( worker.getError() );        
+        assertNull( worker.getError(), worker.getError() );
     }
  
       /**
@@ -54,10 +53,10 @@ public class PerforceWorkerTest
         
         worker.label();
         
-
-        assertNull( worker.getError() );        
+        assertNull( worker.getError(), worker.getError() );
     }
-       /**
+
+    /**
      * Test for scm
      */
     @Test
@@ -71,7 +70,7 @@ public class PerforceWorkerTest
         
         worker.edit();
 
-        assertNull( worker.getError() );        
+        assertNull( worker.getError(), worker.getError() );
     }
     
      /**
@@ -87,7 +86,7 @@ public class PerforceWorkerTest
         
         worker.submit();
 
-        assertNull( worker.getError() );        
+        assertNull( worker.getError(), worker.getError() );
     }
     
      /**
