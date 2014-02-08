@@ -8,7 +8,7 @@
   </parent>
   <groupId>com.maestrodev.maestro.plugins</groupId>
   <artifactId>maestro-scm-plugin</artifactId>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>maestro-scm-plugin</name>
 
   <properties>
